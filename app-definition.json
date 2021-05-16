@@ -1,0 +1,27 @@
+{
+  "name": "Contentful Enclosure Editor/Generator App",
+  "src": "http://localhost:3000",
+  "locations": [
+    {
+      "location": "app-config"
+    },
+    {
+      "location": "entry-field",
+      "fieldTypes": [
+        {
+          "type": "Object"
+        }
+      ]
+    }
+  ],
+  "parameters": {
+    "instance": [
+      {
+        "name": "Path Field ID",
+        "description": "Specifies the ID of a separate field that holds the path to the source file for the enclosure data. Leave empty to set the file path as part of the enclosure object directly.",
+        "id": "pathFieldId",
+        "type": "Symbol"
+      }
+    ]
+  }
+}
