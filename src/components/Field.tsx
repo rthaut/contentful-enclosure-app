@@ -8,6 +8,8 @@ import {
 } from "@contentful/forma-36-react-components";
 import { FieldExtensionSDK } from "@contentful/app-sdk";
 
+import isEqual from "lodash.isequal";
+
 interface FieldProps {
   sdk: FieldExtensionSDK;
 }
@@ -52,6 +54,12 @@ const Field = (props: FieldProps) => {
     }
   }, [pathField]);
 
+  useEffect(() => {
+    if (!isEqual(enclosureData, sdk.field.getValue())) {
+      sdk.field.setValue(enclosureData);
+    }
+  }, [enclosureData]);
+
   const fetchAndSetEnclosureData = async function (
     url: string,
     forceRefresh: boolean = false
@@ -80,9 +88,10 @@ const Field = (props: FieldProps) => {
           length: response.headers.get("content-length") ?? "",
           type: response.headers.get("content-type") ?? "",
         }));
+        sdk.field.setValue(enclosureData);
       }
     } catch (error) {
-      console.error(`Failed to fetch resource "${url}"`, error);
+      console.error(`Failed to fetch resource "${url}" and/or set enclosure data`, error);
     }
 
     setWorking(false);
